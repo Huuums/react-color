@@ -27,7 +27,8 @@ export const ColorWrap = (Picker) => {
       if (isValidColor) {
         const colors = color.toState(data, data.h || this.state.oldHue)
         this.setState(colors)
-        this.props.onChangeComplete && this.debounce(this.props.onChangeComplete, colors, event)
+        this.props.onChangeComplete &&
+          this.debounce(this.props.onChangeComplete, colors, event)
         this.props.onChange && this.props.onChange(colors, event)
       }
     }
@@ -46,13 +47,15 @@ export const ColorWrap = (Picker) => {
       if (this.props.onSwatchHover) {
         optionalEvents.onSwatchHover = this.handleSwatchHover
       }
+      const { forwardedRef, ...props } = this.props
 
       return (
         <Picker
-          { ...this.props }
+          { ...props }
           { ...this.state }
           onChange={ this.handleChange }
           { ...optionalEvents }
+          ref={ forwardedRef }
         />
       )
     }
@@ -66,8 +69,8 @@ export const ColorWrap = (Picker) => {
     ...Picker.defaultProps,
     color: {
       h: 250,
-      s: 0.50,
-      l: 0.20,
+      s: 0.5,
+      l: 0.2,
       a: 1,
     },
   }
@@ -75,4 +78,6 @@ export const ColorWrap = (Picker) => {
   return ColorPicker
 }
 
-export default ColorWrap
+export default React.forwardRef((props, ref) => (
+  <ColorPicker { ...props } forwardedRef={ ref } />
+))
