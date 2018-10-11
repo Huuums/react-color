@@ -19,9 +19,9 @@ export class Photoshop extends React.Component {
   }
 
   render() {
-    const { className = '' } = this.props
+    const { className = '', ref } = this.props
     const styles = reactCSS({
-      'default': {
+      default: {
         picker: {
           background: '#DCDCDC',
           borderRadius: '4px',
@@ -32,7 +32,8 @@ export class Photoshop extends React.Component {
         head: {
           backgroundImage: 'linear-gradient(-180deg, #F0F0F0 0%, #D4D4D4 100%)',
           borderBottom: '1px solid #B1B1B1',
-          boxShadow: 'inset 0 1px 0 0 rgba(255,255,255,.2), inset 0 -1px 0 0 rgba(0,0,0,.02)',
+          boxShadow:
+            'inset 0 1px 0 0 rgba(255,255,255,.2), inset 0 -1px 0 0 rgba(0,0,0,.02)',
           height: '23px',
           lineHeight: '24px',
           borderRadius: '4px 4px 0 0',
@@ -78,8 +79,12 @@ export class Photoshop extends React.Component {
     })
 
     return (
-      <div style={ styles.picker } className={ `photoshop-picker ${ className }` }>
-        <div style={ styles.head }>{ this.props.header }</div>
+      <div
+        style={ styles.picker }
+        className={ `photoshop-picker ${ className }` }
+        ref={ ref }
+      >
+        <div style={ styles.head }>{this.props.header}</div>
 
         <div style={ styles.body } className="flexbox-fix">
           <div style={ styles.saturation }>
@@ -107,7 +112,11 @@ export class Photoshop extends React.Component {
                 />
               </div>
               <div style={ styles.actions }>
-                <PhotoshopButton label="OK" onClick={ this.props.onAccept } active />
+                <PhotoshopButton
+                  label="OK"
+                  onClick={ this.props.onAccept }
+                  active
+                />
                 <PhotoshopButton label="Cancel" onClick={ this.props.onCancel } />
                 <PhotoshopFields
                   onChange={ this.props.onChange }
@@ -126,10 +135,12 @@ export class Photoshop extends React.Component {
 
 Photoshop.propTypes = {
   header: PropTypes.string,
+  ref: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 }
 
 Photoshop.defaultProps = {
   header: 'Color Picker',
+  ref: null,
 }
 
 export default ColorWrap(Photoshop)

@@ -4,9 +4,9 @@ import color from '../../helpers/color'
 
 import { ColorWrap, EditableInput, Raised } from '../common'
 
-export const Material = ({ onChange, hex, rgb, className = '' }) => {
+export const Material = ({ onChange, hex, rgb, className = '', ref }) => {
   const styles = reactCSS({
-    'default': {
+    default: {
       material: {
         width: '98px',
         height: '98px',
@@ -36,9 +36,7 @@ export const Material = ({ onChange, hex, rgb, className = '' }) => {
         textTransform: 'capitalize',
       },
       Hex: {
-        style: {
-
-        },
+        style: {},
       },
       RGBwrap: {
         position: 'relative',
@@ -76,25 +74,40 @@ export const Material = ({ onChange, hex, rgb, className = '' }) => {
 
   const handleChange = (data, e) => {
     if (data.hex) {
-      color.isValidHex(data.hex) && onChange({
-        hex: data.hex,
-        source: 'hex',
-      }, e)
+      color.isValidHex(data.hex) &&
+        onChange(
+          {
+            hex: data.hex,
+            source: 'hex',
+          },
+          e
+        )
     } else if (data.r || data.g || data.b) {
-      onChange({
-        r: data.r || rgb.r,
-        g: data.g || rgb.g,
-        b: data.b || rgb.b,
-        source: 'rgb',
-      }, e)
+      onChange(
+        {
+          r: data.r || rgb.r,
+          g: data.g || rgb.g,
+          b: data.b || rgb.b,
+          source: 'rgb',
+        },
+        e
+      )
     }
   }
 
   return (
     <Raised>
-      <div style={ styles.material } className={ `material-picker ${ className }` }>
+      <div
+        style={ styles.material }
+        className={ `material-picker ${ className }` }
+        ref={ ref }
+      >
         <EditableInput
-          style={{ wrap: styles.HEXwrap, input: styles.HEXinput, label: styles.HEXlabel }}
+          style={{
+            wrap: styles.HEXwrap,
+            input: styles.HEXinput,
+            label: styles.HEXlabel,
+          }}
           label="hex"
           value={ hex }
           onChange={ handleChange }
@@ -102,14 +115,23 @@ export const Material = ({ onChange, hex, rgb, className = '' }) => {
         <div style={ styles.split } className="flexbox-fix">
           <div style={ styles.third }>
             <EditableInput
-              style={{ wrap: styles.RGBwrap, input: styles.RGBinput, label: styles.RGBlabel }}
-              label="r" value={ rgb.r }
+              style={{
+                wrap: styles.RGBwrap,
+                input: styles.RGBinput,
+                label: styles.RGBlabel,
+              }}
+              label="r"
+              value={ rgb.r }
               onChange={ handleChange }
             />
           </div>
           <div style={ styles.third }>
             <EditableInput
-              style={{ wrap: styles.RGBwrap, input: styles.RGBinput, label: styles.RGBlabel }}
+              style={{
+                wrap: styles.RGBwrap,
+                input: styles.RGBinput,
+                label: styles.RGBlabel,
+              }}
               label="g"
               value={ rgb.g }
               onChange={ handleChange }
@@ -117,7 +139,11 @@ export const Material = ({ onChange, hex, rgb, className = '' }) => {
           </div>
           <div style={ styles.third }>
             <EditableInput
-              style={{ wrap: styles.RGBwrap, input: styles.RGBinput, label: styles.RGBlabel }}
+              style={{
+                wrap: styles.RGBwrap,
+                input: styles.RGBinput,
+                label: styles.RGBlabel,
+              }}
               label="b"
               value={ rgb.b }
               onChange={ handleChange }

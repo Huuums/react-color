@@ -1190,7 +1190,6 @@ exports[`CircleSwatch renders correctly 1`] = `
           }
         }
         tabIndex={0}
-        title={undefined}
       />
     </span>
   </div>
@@ -1255,7 +1254,6 @@ exports[`CircleSwatch renders with sizing and spacing 1`] = `
           }
         }
         tabIndex={0}
-        title={undefined}
       />
     </span>
   </div>

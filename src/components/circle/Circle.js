@@ -7,10 +7,19 @@ import * as material from 'material-colors'
 import { ColorWrap } from '../common'
 import CircleSwatch from './CircleSwatch'
 
-export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize,
-  circleSpacing, className = '' }) => {
+export const Circle = ({
+  width,
+  onChange,
+  onSwatchHover,
+  colors,
+  hex,
+  circleSize,
+  circleSpacing,
+  className = '',
+  ref,
+}) => {
   const styles = reactCSS({
-    'default': {
+    default: {
       card: {
         width,
         display: 'flex',
@@ -21,11 +30,12 @@ export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize
     },
   })
 
-  const handleChange = (hexCode, e) => onChange({ hex: hexCode, source: 'hex' }, e)
+  const handleChange = (hexCode, e) =>
+    onChange({ hex: hexCode, source: 'hex' }, e)
 
   return (
-    <div style={ styles.card } className={ `circle-picker ${ className }` }>
-      { map(colors, c => (
+    <div style={ styles.card } className={ `circle-picker ${ className }` } ref={ ref }>
+      {map(colors, (c) => (
         <CircleSwatch
           key={ c }
           color={ c }
@@ -35,7 +45,7 @@ export const Circle = ({ width, onChange, onSwatchHover, colors, hex, circleSize
           circleSize={ circleSize }
           circleSpacing={ circleSpacing }
         />
-      )) }
+      ))}
     </div>
   )
 }
@@ -44,18 +54,34 @@ Circle.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   circleSize: PropTypes.number,
   circleSpacing: PropTypes.number,
+  ref: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 }
 
 Circle.defaultProps = {
   width: 252,
   circleSize: 28,
   circleSpacing: 14,
-  colors: [material.red['500'], material.pink['500'], material.purple['500'],
-    material.deepPurple['500'], material.indigo['500'], material.blue['500'],
-    material.lightBlue['500'], material.cyan['500'], material.teal['500'],
-    material.green['500'], material.lightGreen['500'], material.lime['500'],
-    material.yellow['500'], material.amber['500'], material.orange['500'],
-    material.deepOrange['500'], material.brown['500'], material.blueGrey['500']],
+  colors: [
+    material.red['500'],
+    material.pink['500'],
+    material.purple['500'],
+    material.deepPurple['500'],
+    material.indigo['500'],
+    material.blue['500'],
+    material.lightBlue['500'],
+    material.cyan['500'],
+    material.teal['500'],
+    material.green['500'],
+    material.lightGreen['500'],
+    material.lime['500'],
+    material.yellow['500'],
+    material.amber['500'],
+    material.orange['500'],
+    material.deepOrange['500'],
+    material.brown['500'],
+    material.blueGrey['500'],
+  ],
+  ref: null,
 }
 
 export default ColorWrap(Circle)

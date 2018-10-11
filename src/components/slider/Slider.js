@@ -5,9 +5,9 @@ import { ColorWrap, Hue } from '../common'
 import SliderSwatches from './SliderSwatches'
 import SliderPointer from './SliderPointer'
 
-export const Slider = ({ hsl, onChange, pointer, className = '' }) => {
+export const Slider = ({ hsl, onChange, pointer, className = '', ref }) => {
   const styles = reactCSS({
-    'default': {
+    default: {
       hue: {
         height: '12px',
         position: 'relative',
@@ -19,7 +19,7 @@ export const Slider = ({ hsl, onChange, pointer, className = '' }) => {
   })
 
   return (
-    <div className={ `slider-picker ${ className }` }>
+    <div className={ `slider-picker ${ className }` } ref={ ref }>
       <div style={ styles.hue }>
         <Hue
           style={ styles.Hue }
@@ -37,6 +37,7 @@ export const Slider = ({ hsl, onChange, pointer, className = '' }) => {
 
 Slider.defaultProps = {
   pointer: SliderPointer,
+  ref: null,
 }
 
 export default ColorWrap(Slider)
