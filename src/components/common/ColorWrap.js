@@ -75,9 +75,9 @@ export const ColorWrap = (Picker) => {
     },
   }
 
-  return ColorPicker
+  return React.forwardRef((props, ref) => (
+    <ColorPicker { ...props } forwardedRef={ ref } />
+  ))
 }
 
-export default React.forwardRef((props, ref) => (
-  <ColorPicker { ...props } forwardedRef={ ref } />
-))
+export default ColorWrap
